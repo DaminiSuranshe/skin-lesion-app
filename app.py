@@ -70,7 +70,7 @@ def grad_cam(img_path, model, layer_name="Conv_1"):
     cam = np.maximum(cam, 0)
     cam = cam / (cam.max() + 1e-8)
 
-    cam = cv2.resize(cam.numpy(), (224, 224))
+    cam = cv2.resize(cam, (224, 224))
     heatmap = cv2.applyColorMap(np.uint8(255 * cam), cv2.COLORMAP_JET)
     heatmap = cv2.cvtColor(heatmap, cv2.COLOR_BGR2RGB)
 

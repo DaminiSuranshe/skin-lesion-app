@@ -52,7 +52,10 @@ def grad_cam(img_path, model, layer_name="Conv_1"):
     # Gradient calculation
     with tf.GradientTape() as tape:
         conv_outputs, predictions = grad_model(img_array)
-        loss = predictions[:, 0]
+    
+        # handle both (1,) and (1,1)
+        loss = predictions[..., 0]
+
 
     grads = tape.gradient(loss, conv_outputs)[0]
     weights = tf.reduce_mean(grads, axis=(0, 1))

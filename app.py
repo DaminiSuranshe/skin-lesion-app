@@ -54,7 +54,8 @@ def grad_cam(img_path, model, layer_name="Conv_1"):
         conv_outputs, predictions = grad_model(img_array)
     
         # handle both (1,) and (1,1)
-        loss = predictions[..., 0]
+        pred_value = predictions[0][0]     # works whether shape is (1,) or (1,1)
+        loss = pred_value
 
 
     grads = tape.gradient(loss, conv_outputs)[0]
